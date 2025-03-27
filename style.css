@@ -133,6 +133,58 @@ ul {
   background: var(--dark-color);
 }
 
+/* Menu Toggle Button - Thêm khoảng dòng 120-130 */
+.menu-toggle {
+  display: block;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #fff;
+  z-index: 100;
+  margin-left: auto;
+}
+
+.menu-toggle i {
+  transition: transform 0.3s ease;
+}
+
+/* Menu mặc định ẩn - Thêm khoảng dòng 131-150 */
+.nav-menu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background: var(--dark-color);
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem 0;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 9;
+}
+
+.nav-menu.show {
+  display: flex;
+}
+
+.nav-menu li {
+  margin: 0.8rem 0;
+  width: 100%;
+}
+
+.nav-menu li a {
+  display: block;
+  padding: 0.8rem 0;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+gzaz .nav-menu li a:hover,
+.nav-menu li.active a {
+  background-color: rgba(67, 97, 238, 0.1);
+  color: var(--primary-light);
+}
+
 /* Header */
 .header {
   height: 80vh;
@@ -701,6 +753,73 @@ ul {
   padding: 0.6rem 1.5rem;
   font-size: 0.9rem;
   margin-right: 1rem;
+}
+
+/* Phần CSS cho desktop view - Hiện menu ngang */
+@media (min-width: 769px) {
+  .navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .nav-menu {
+    display: flex;
+    position: static;
+    flex-direction: row;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    width: auto;
+  }
+
+  .nav-menu li {
+    margin-left: 1.5rem;
+    width: auto;
+  }
+
+  .nav-menu li a {
+    padding: 0;
+  }
+
+  .nav-menu li::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-light);
+    transition: var(--transition);
+  }
+
+  .nav-menu li:hover::after {
+    width: 100%;
+  }
+
+  .nav-menu li.active::after {
+    width: 100%;
+  }
+}
+
+/* Animation for mobile menu */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-menu.show {
+  animation: slideDown 0.3s ease forwards;
 }
 
 /* Social Media */
