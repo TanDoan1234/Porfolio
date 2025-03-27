@@ -1022,3 +1022,354 @@ ul {
     transform: translateY(0) scale(1);
   }
 }
+
+/* Menu Toggle Button */
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #fff;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+  }
+
+  .navbar .container {
+    position: relative;
+    padding-bottom: 0;
+  }
+
+  .navbar .container h1 {
+    margin-bottom: 1rem;
+  }
+
+  .navbar ul {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 0.5rem;
+    background-color: var(--dark-color);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .navbar ul.show {
+    display: flex;
+  }
+
+  .navbar ul li {
+    margin: 0.8rem 0;
+    width: 100%;
+  }
+
+  .navbar ul li::after {
+    display: none;
+  }
+
+  .navbar ul li a {
+    display: block;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+  }
+
+  .navbar ul li a:hover,
+  .navbar ul li.active a {
+    background-color: rgba(67, 97, 238, 0.1);
+    color: var(--primary-light);
+  }
+
+  /* Animation for mobile menu */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .navbar ul.show {
+    animation: slideDown 0.3s ease forwards;
+  }
+
+  /* Responsive Navbar */
+  .navbar {
+    padding: 0.5rem 0;
+  }
+
+  .navbar .container {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  .navbar ul {
+    margin-top: 1rem;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .navbar ul li {
+    margin-left: 0;
+    margin-right: 1rem;
+    white-space: nowrap;
+  }
+
+  .navbar ul li:last-child {
+    margin-right: 0;
+  }
+
+  /* Giảm kích thước font chữ cho mobile */
+  .header-content h1 {
+    font-size: 2rem;
+  }
+
+  .header-content p {
+    font-size: 1rem;
+  }
+
+  .about h2,
+  .skills h2,
+  .projects h2,
+  .social h2,
+  .contact h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Tối ưu cho màn hình nhỏ hơn */
+@media (max-width: 576px) {
+  /* Tăng chiều cao phần header để hiển thị đầy đủ nội dung */
+  .header {
+    height: auto;
+    min-height: 70vh;
+    padding: 2rem 0;
+  }
+
+  /* Giảm padding các section để tối ưu không gian */
+  .about,
+  .skills,
+  .projects,
+  .social,
+  .contact {
+    padding: 3rem 0;
+  }
+
+  /* Điều chỉnh skills */
+  .skills-content {
+    grid-template-columns: 1fr;
+  }
+
+  /* Cải thiện hiển thị dự án */
+  .project {
+    max-width: 100%;
+  }
+
+  .project-img {
+    height: 200px;
+  }
+
+  /* Điều chỉnh phần contact form */
+  .form-control input,
+  .form-control textarea {
+    padding: 0.8rem 1rem;
+  }
+
+  /* Cải thiện hiển thị social links */
+  .social-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .social-link {
+    width: 80%;
+    max-width: 220px;
+  }
+
+  /* Fix popup kỹ năng Python */
+  .skill-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%;
+    max-width: 300px;
+    z-index: 100;
+  }
+
+  .python-skill:hover .skill-popup {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Menu mobile responsive */
+@media (max-width: 480px) {
+  .navbar ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .navbar ul li {
+    margin: 0.5rem 0.7rem;
+  }
+}
+
+/* Thêm touch scrolling hiệu quả hơn */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Cải thiện font-size và spacing cho readability */
+@media (max-width: 380px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .profile-img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Cải thiện trải nghiệm chạm cho thiết bị di động */
+@media (max-width: 768px) {
+  .navbar ul li a,
+  .btn,
+  .social-link,
+  .project-links a,
+  .form-control input[type="submit"] {
+    padding: 0.8rem 1.5rem;
+    min-height: 44px; /* Đảm bảo kích thước tối thiểu theo hướng dẫn của Apple */
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Tăng khoảng cách giữa các phần tử tương tác */
+  .project-tag {
+    margin-right: 0.8rem;
+    margin-bottom: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+
+  /* Cải thiện skeletons và placeholders */
+  .profile-img,
+  .project-img img {
+    background-color: #f0f0f0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Điều chỉnh form controls */
+  .form-control input,
+  .form-control textarea {
+    font-size: 16px; /* Ngăn iOS zoom vào các input field */
+  }
+
+  /* Custom scrollbar cho mobile */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+
+  /* Loại bỏ/tối ưu hiệu ứng hover trên thiết bị cảm ứng */
+  .skill:hover,
+  .project:hover,
+  .social-link:hover {
+    transform: none;
+  }
+
+  /* Thay thế bằng hiệu ứng active khi chạm */
+  .skill:active,
+  .project:active,
+  .social-link:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  /* Điều chỉnh các hiệu ứng đồ họa nặng */
+  .header::before,
+  .social::before {
+    opacity: 0.05; /* Giảm độ phức tạp đồ họa */
+  }
+
+  /* Cải thiện khả năng đọc trên màn hình nhỏ */
+  p,
+  .skill p,
+  .popup-skill span {
+    line-height: 1.6;
+  }
+
+  /* Ngăn việc zoom không mong muốn */
+  input,
+  textarea,
+  select,
+  button {
+    font-size: 16px; /* Ngăn việc zoom tự động của iOS Safari */
+  }
+}
+
+/* Thêm một vài cải tiến khác cho màn hình nhỏ nhất */
+@media (max-width: 380px) {
+  .header-content {
+    padding: 0 1rem;
+  }
+
+  .about-content,
+  .skills-content,
+  .projects-content,
+  .contact-content {
+    gap: 1.5rem;
+  }
+
+  .skill,
+  .project-content,
+  .contact-info {
+    padding: 1.5rem;
+  }
+
+  .navbar .container h1 {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+  }
+
+  .menu-toggle {
+    top: 0.8rem;
+    right: 1rem;
+    font-size: 1.3rem;
+  }
+}

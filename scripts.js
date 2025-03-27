@@ -1,8 +1,59 @@
 // Xử lý scrolling mượt mà khi nhấp vào các liên kết
 document.addEventListener("DOMContentLoaded", function () {
-  // Smooth scroll cho tất cả liên kết trong menu
-  const navLinks = document.querySelectorAll('a[href^="#"]');
+  // Thêm nút hamburger menu cho mobile
+  const navbar = document.querySelector(".navbar .container");
+  const navMenu = document.querySelector(".navbar ul");
 
+  // Tạo nút hamburger
+  const menuToggle = document.createElement("div");
+  menuToggle.className = "menu-toggle";
+  menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+
+  // Chèn nút vào navbar
+  navbar.insertBefore(menuToggle, navMenu);
+
+  // Thêm event listener cho nút menu
+  menuToggle.addEventListener("click", function () {
+    navMenu.classList.toggle("show");
+    if (navMenu.classList.contains("show")) {
+      menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+    } else {
+      menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    }
+  });
+
+  // Đóng menu khi click vào link
+  const navLinks = document.querySelectorAll(".navbar ul li a");
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      // Chỉ đóng menu nếu đang hiển thị (có class show) và màn hình nhỏ
+      if (window.innerWidth <= 768 && navMenu.classList.contains("show")) {
+        navMenu.classList.remove("show");
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+      }
+    });
+  });
+
+  // Đóng menu khi click ra ngoài
+  document.addEventListener("click", function (event) {
+    if (
+      !event.target.closest(".navbar") &&
+      navMenu.classList.contains("show")
+    ) {
+      navMenu.classList.remove("show");
+      menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    }
+  });
+
+  // Cập nhật trạng thái menu khi resize màn hình
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 768 && navMenu.classList.contains("show")) {
+      navMenu.classList.remove("show");
+      menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    }
+  });
+
+  // Smooth scroll cho tất cả liên kết trong menu
   navLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
@@ -88,4 +139,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Kiểm tra ngay khi trang tải xong
   checkReveal();
+
+  // Lazy loading cho hình ảnh
+  if ("IntersectionObserver" in window) {
+    const imgOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1,
+    };
+
+    const imgObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          const src = img.getAttribute("data-src");
+
+          if (src) {
+            img.src = src;
+            img.removeAttribute("data-src");
+          }
+
+          observer.unobserve(img);
+        }
+      });
+    }, imgOptions);
+
+    // Tìm tất cả hình ảnh có thuộc tính data-src
+    const lazyImages = document.querySelectorAll("img[data-src]");
+    lazyImages.forEach((img) => {
+      imgObserver.observe(img);
+    });
+  } else {
+    // Fallback cho trình duyệt không hỗ trợ Intersection Observer
+    const lazyImages = document.querySelectorAll("img[data-src]");
+    lazyImages.forEach((img) => {
+      img.src = img.getAttribute("data-src");
+      img.removeAttribute("data-src");
+    });
+  }
 });
